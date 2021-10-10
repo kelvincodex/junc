@@ -10,6 +10,7 @@
      .logo{
        color: grey !important;
        font-weight: bold;
+       margin-top: 5px;
      }
      form{
        width: 70%;
@@ -23,9 +24,9 @@
 <body class="grey lighten-2">
 <nav class="navbar white z-depth-0">
 <div class="container">
-  <h4 class="brand-logo logo">Sharming</h4>
+  <h4><a href="index.php"  class="brand-logo logo">Sharming</a> </h4>
   <ul class="right">
-    <li><a href="#" class="waves-effect waves-red btn btn-large  pink lighten-3">PLACE ORDER</a></li>
+    <li><a href="add.php" class="waves-effect waves-red btn btn-large  pink lighten-3">PLACE ORDER</a></li>
 
   </ul>
 </div>

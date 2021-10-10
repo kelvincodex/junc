@@ -1,6 +1,8 @@
 
 <?php 
 
+include "config/db_coonect.php";
+
 $name=$ingredient=$email=$title='';
 $erroMsg =[
   'email'=>'',
@@ -58,9 +60,22 @@ if(!$_POST['name']){
 
 if(array_filter($erroMsg) !== false){
   // echo "error in these page";
-  header("location: index.php");
-} 
+  $email = mysqli_real_escape_string($connect,$_POST['email']);
+  $name = mysqli_real_escape_string($connect,$_POST['name']);
+  $ingredient = mysqli_real_escape_string($connect,$_POST['ingredient']);
+  $title = mysqli_real_escape_string($connect,$_POST['title']);
 
+  // write query
+  $mysql = "INSERT INTO practice(email,name,ingredient,type) VALUES('$email','$name','$ingredient','$title')";
+
+  if (mysqli_query($connect,$mysql)) {
+    //echo "success";
+     header("location: index.php");
+  } else{
+    echo "query error: " . mysqli_error($connect);
+
+  }
+} 
 
 }//form validattion
 

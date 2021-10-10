@@ -1,20 +1,10 @@
 <?php
-// connect to db with mysql
-$servername = 'localhost';
-$username = 'keshi';
-$password = 'kesh1234';
-$dbname = 'practice1';
 
-$connect = mysqli_connect($servername, $username, $password, $dbname);
+include "config/db_coonect.php";
 
-if ($connect == false) {
-    echo 'connection error: ' . mysqli_connect_error();
-} else {
-    echo 'connected!!!';
-}
 // write query
 
-$sql = 'SELECT id,name,email FROM practice';
+$sql = "SELECT id,name,type,ingredient FROM practice ORDER BY date";
 // make the query
 
 $result = mysqli_query($connect, $sql);
@@ -27,10 +17,6 @@ mysqli_free_result($result);
 
 // close connect
 mysqli_close($connect);
-
-print_r($queryarr);
-
-
 
 
 
@@ -51,30 +37,39 @@ print_r($queryarr);
 
 <!DOCTYPE html>
 <html lang="en">
-
-<body>
 <?php include("templates/header.php"); ?>
 
-<h4 class="grey-text center-align">Shawarma's</h4>
+
+
+<h4 class="grey-text center">Shawarma's</h4>
 
 <div class="container">
 <div class="row">
 
-<?php foreach ($querrarr as $shawama) { ?>
+<?php foreach($queryarr as $shawama): ?>
 
-<div class="col s6 m3">
-  <div class="card">
-   
-
+<div class="col s6 m3 ">
+  <div class="card z-depth-0 ">
+   <div class="card-content center ">
+    <h6> <?php echo htmlspecialchars($shawama['type']) ?></h6>  
+    <ul>
+        <?php foreach(explode(',', $shawama['ingredient']) as $per): ?>
+            <li><?php echo htmlspecialchars($per); ?></li>
+      
+       <?php endforeach; ?>
+    </ul> 
+   </div>
+    <div class="card-action right-align">
+        <a href="details.php?id=<?php echo $shawama['id'] ?>" class="logo"> more info</a>
+    </div>
   </div>
-  
 </div>
-<?php } ?>
+    <?php endforeach; ?> 
+</div>
 </div>
 
 <?php include("templates/footer.php"); ?>
-  
-</body>
+
 </html>
 
 
